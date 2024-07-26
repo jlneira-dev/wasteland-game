@@ -19,15 +19,15 @@ Player loses if all lives lost, wins if defeats final boss.
     [X] Create DOM element
     [X] Create vertical and horizontal movement w/ Event Listener
 
+[X] Create enemy class
+    [X] Set position and size
+    [X] Create DOM element
+    [X] Create movement to player
+
 [ ] Create projectile class
     [ ] Set position (relative to player) and size
     [ ] Create DOM element
     [ ] Create movement to enemy, only up/down/left/right shooting if cannot shoot to mouse cursor
-
-[ ] Create enemy class
-    [ ] Set position and size
-    [ ] Create DOM element
-    [ ] Create movement to player
 
 [ ] Change rooms
     [ ] Change game background
