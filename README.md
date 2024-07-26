@@ -12,39 +12,39 @@ Player loses if all lives lost, wins if defeats final boss.
 
 [X] Initial setup
 
-[] Create repo
+[X] Create repo
 
-[] Create player class
-    [] Set position and size
-    [] Create DOM element
-    [] Create vertical and horizontal movement w/ Event Listener
+[X] Create player class
+    [X] Set position and size
+    [X] Create DOM element
+    [X] Create vertical and horizontal movement w/ Event Listener
 
-[] Create projectile class
-    [] Set position (relative to player) and size
-    [] Create DOM element
-    [] Create movement to enemy, only up/down/left/right shooting if cannot shoot to mouse cursor
+[ ] Create projectile class
+    [ ] Set position (relative to player) and size
+    [ ] Create DOM element
+    [ ] Create movement to enemy, only up/down/left/right shooting if cannot shoot to mouse cursor
 
-[] Create enemy class
-    [] Set position and size
-    [] Create DOM element
-    [] Create movement to player
+[ ] Create enemy class
+    [ ] Set position and size
+    [ ] Create DOM element
+    [ ] Create movement to player
 
-[] Change rooms
-    [] Change game background
-    [] Change player position
+[ ] Change rooms
+    [ ] Change game background
+    [ ] Change player position
 
 ## BONUSES (if possible):
 
-[] Create extensions to player class (archer, wizard)
-    [] Change player image
-    [] Change projectile image, damage & speed
+[ ] Create extensions to player class (archer, wizard)
+    [ ] Change player image
+    [ ] Change projectile image, damage & speed
 
-[] Add special ability
-    [] Change player extension archer or wizard
-    [] Create extension to projectile class
+[ ] Add special ability
+    [ ] Change player extension archer or wizard
+    [ ] Create extension to projectile class
 
-[] Add item loot
-    [] Health + 1 / Third ability / Evade ability
+[ ] Add item loot
+    [ ] Health + 1 / Third ability / Evade ability
 
-[] Extra boss if make a different option
+[ ] Extra boss if make a different option
 
