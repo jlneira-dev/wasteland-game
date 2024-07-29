@@ -5,6 +5,7 @@ body {
 }
 
 #stage {
+    position: relative;
     background-image: url("../images/dungeon-room-1.jpeg");
     background-repeat: no-repeat;
     background-position: center;
@@ -15,7 +16,10 @@ body {
 }
 
 #player {
-    background-color: white;
+    background-image: url("../images/wizard.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     position: absolute;
 }
 

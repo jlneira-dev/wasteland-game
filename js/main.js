@@ -10,8 +10,8 @@ document.addEventListener("mousemove", e => {
 class Player {
     constructor() {
         // set size of player
-        this.width = 3;
-        this.height = 5;
+        this.width = 8;
+        this.height = 12;
 
         // set position of player
         this.positionX = 50 - this.width / 2;
