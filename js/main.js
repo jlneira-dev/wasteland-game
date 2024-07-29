@@ -10,7 +10,7 @@ document.addEventListener("mousemove", e => {
 class Player {
     constructor() {
         // set size of player
-        this.width = 5;
+        this.width = 3;
         this.height = 5;
 
         // set position of player
@@ -40,7 +40,7 @@ class Player {
 
     // move player to the left within bounds of stage
     moveLeft() {
-        if(this.positionX > 0) {
+        if(this.positionX > 5) {
             this.positionX--;
             this.domElement.style.left = this.positionX + "vw";
         }
@@ -48,7 +48,7 @@ class Player {
 
     // move player to the right within bounds of stage
     moveRight() {
-        if(this.positionX < 100 - this.width) {
+        if(this.positionX < 95 - this.width) {
             this.positionX++;
             this.domElement.style.left = this.positionX + "vw";
         }
@@ -56,7 +56,7 @@ class Player {
 
     // move player up within bounds of stage
     moveUp() {
-        if (this.positionY < 100 - this.height) {
+        if (this.positionY < 95 - this.height) {
             this.positionY++;
             this.domElement.style.bottom = this.positionY + "vh";
         }
@@ -64,7 +64,7 @@ class Player {
 
     // move player down within bounds of stage
     moveDown() {
-        if (this.positionY > 0) {
+        if (this.positionY > 5) {
             this.positionY--;
             this.domElement.style.bottom = this.positionY + "vh";
         }
@@ -87,6 +87,9 @@ class Enemy {
         // set start position of projectile
         this.positionX = 0;
         this.positionY = 0;
+
+        // check if element was removed via collision
+        this.removed = false;
 
         this.createDomElement();
         this.moveToPlayer();
@@ -113,32 +116,45 @@ class Enemy {
     moveToPlayer() {
         setInterval (() => {
 
+            // stop movement if enemy is removed
+            if (this.removed) return;
+
             // move enemy right if player is further right
-            if (player.positionX > this.positionX) {
-                this.positionX++;
-                this.domElement.style.left = this.positionX + "vw";
-            }
+            if (player.positionX > this.positionX) this.positionX++; 
 
             // move enemy left if player is further left
-            if (player.positionX < this.positionX) {
-                this.positionX--
-                this.domElement.style.left = this.positionX + "vw";
-            }
+            if (player.positionX < this.positionX) this.positionX--;
 
             // move enemy up if player is further up
-            if (player.positionY > this.positionY) {
-                this.positionY++;
-                this.domElement.style.bottom = this.positionY + "vh";
-            }
+            if (player.positionY > this.positionY) this.positionY++;
 
             // move enemy down if player is further down
-            if (player.positionY < this.positionY) {
-                this.positionY--;
-                this.domElement.style.bottom = this.positionY + "vh";
-            }
+            if (player.positionY < this.positionY) this.positionY--;
+
+            this.domElement.style.left = this.positionX + "vw";
+            this.domElement.style.bottom = this.positionY + "vh";
         }, 200);
     }
+
+    removeEnemy () {
+        this.removed = true;
+        this.domElement.remove();
+    }
+
+    // decide if enemy is hit by projectile
+    isHit(projectile) {
+        
+        // no collision if enemy is removed
+        if (this.removed) return false;
+
+        return !(projectile.positionX > this.positionX + this.width ||
+            projectile.positionX + projectile.width < this.positionX ||
+            projectile.positionY > this.positionY + this.height ||
+            projectile.positionY + projectile.height < this.positionY);
+    }
 }
+
+let counter = 0;
 
 class Projectile {
     constructor() {
@@ -180,14 +196,38 @@ class Projectile {
 
     // move projectile to mouse position
     moveToMouse() {
+        const movementInterval = setInterval(() => {
+            if (this.checkCollision() || this.leavesGameArea()) {
+                clearInterval(movementInterval);
+                this.domElement.remove();
+                return;
+            }
 
-        // if mouse position differs from projectile position, move accordingly
-        setInterval(() => {
             this.positionX += this.velocityX;
             this.positionY += this.velocityY;
             this.domElement.style.left = this.positionX + "vw";
             this.domElement.style.bottom = this.positionY + "vh";
-        }, 50);
+        }, 25);
+    }
+
+    checkCollision() {
+        if (enemy.isHit(this)) {
+            counter++;
+            if (counter >= 3) {
+                enemy.removeEnemy();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    leavesGameArea() {
+        return (
+            this.positionX < 5 ||
+            this.positionX > 95 ||
+            this.positionY < 5 ||
+            this.positionY > 95
+        );
     }
 }
 
