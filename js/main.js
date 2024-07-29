@@ -56,15 +56,15 @@ class Player {
 
     // move player up within bounds of stage
     moveUp() {
-        if (this.positionY < 95 - this.height) {
-            this.positionY++;
+        if (this.positionY < 92 - this.height) {
+            this.positionY += 2;
             this.domElement.style.bottom = this.positionY + "vh";
         }
     }
 
     // move player down within bounds of stage
     moveDown() {
-        if (this.positionY > 5) {
+        if (this.positionY > 8) {
             this.positionY--;
             this.domElement.style.bottom = this.positionY + "vh";
         }
@@ -82,7 +82,7 @@ class Enemy {
     constructor() {
         // set size of projectile
         this.width = 5;
-        this.height = 5;
+        this.height = 10;
 
         // set start position of projectile
         this.positionX = Math.floor(Math.random() * (100 - this.width + 1)); // random number between 0 and (100 - this.width)
@@ -159,8 +159,8 @@ let counter = 0;
 class Projectile {
     constructor() {
         // set size of enemy
-        this.width = 2;
-        this.height = 2;
+        this.width = 3;
+        this.height = 3;
 
         // set position of enemy
         this.positionX = player.positionX + player.width/2;
@@ -223,8 +223,8 @@ class Projectile {
 
     leavesGameArea() {
         return (
-            this.positionX < 10 ||
-            this.positionX > 95 ||
+            this.positionX < 8 ||
+            this.positionX > 90 ||
             this.positionY < 10 ||
             this.positionY > 90
         );

@@ -9,7 +9,7 @@ body {
     background-image: url("../images/dungeon-room-1.jpeg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: auto 100%;
+    background-size: 100% 100%;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -24,11 +24,17 @@ body {
 }
 
 #enemy {
-    background-color: red;
+    background-image: url("../images/skeleton.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     position: absolute;
 }
 
 #projectile {
-    background-color: white;
+    background-image: url("../images/fireball.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     position: absolute;
 }
