@@ -85,7 +85,7 @@ class Enemy {
         this.height = 5;
 
         // set start position of projectile
-        this.positionX = 0;
+        this.positionX = Math.floor(Math.random() * (100 - this.width + 1)); // random number between 0 and (100 - this.width)
         this.positionY = 0;
 
         // check if element was removed via collision
@@ -223,10 +223,10 @@ class Projectile {
 
     leavesGameArea() {
         return (
-            this.positionX < 5 ||
+            this.positionX < 10 ||
             this.positionX > 95 ||
-            this.positionY < 5 ||
-            this.positionY > 95
+            this.positionY < 10 ||
+            this.positionY > 90
         );
     }
 }
