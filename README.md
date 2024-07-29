@@ -24,10 +24,10 @@ Player loses if all lives lost, wins if defeats final boss.
     [X] Create DOM element
     [X] Create movement to player
 
-[ ] Create projectile class
-    [ ] Set position (relative to player) and size
-    [ ] Create DOM element
-    [ ] Create movement to enemy, only up/down/left/right shooting if cannot shoot to mouse cursor
+[X] Create projectile class
+    [X] Set position (relative to player) and size
+    [X] Create DOM element
+    [X] Create movement to enemy
 
 [ ] Change rooms
     [ ] Change game background

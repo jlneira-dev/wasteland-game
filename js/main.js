@@ -1,14 +1,24 @@
+let mouseX = 0;
+let mouseY = 0;
+
+// track mouse position constantly
+document.addEventListener("mousemove", e => {
+    mouseX = e.clientX / window.innerWidth * 100;
+    mouseY = (window.innerHeight - e.clientY) / window.innerHeight * 100;
+});
+
 class Player {
     constructor() {
         // set size of player
-        this.width = 20;
-        this.height = 20;
+        this.width = 5;
+        this.height = 5;
 
         // set position of player
         this.positionX = 50 - this.width / 2;
         this.positionY = 50 - this.height / 2;
 
         this.createDomElement();
+        this.startShooting();
     }
 
     // create and append element to DOM
@@ -59,15 +69,22 @@ class Player {
             this.domElement.style.bottom = this.positionY + "vh";
         }
     }
+
+    // shoot projectile at enemy
+    startShooting() {
+        setInterval(() => {
+            new Projectile(this.positionX + this.width / 2, this.positionY + this.height);
+        }, 1000);
+    }
 }
 
 class Enemy {
     constructor() {
-        // set size of enemy
-        this.width = 20;
-        this.height = 20;
+        // set size of projectile
+        this.width = 5;
+        this.height = 5;
 
-        // set position of enemy
+        // set start position of projectile
         this.positionX = 0;
         this.positionY = 0;
 
@@ -119,7 +136,58 @@ class Enemy {
                 this.positionY--;
                 this.domElement.style.bottom = this.positionY + "vh";
             }
-        }, 100);
+        }, 200);
+    }
+}
+
+class Projectile {
+    constructor() {
+        // set size of enemy
+        this.width = 2;
+        this.height = 2;
+
+        // set position of enemy
+        this.positionX = player.positionX + player.width/2;
+        this.positionY = player.positionY + player.height/2;
+
+        // calculate direction vector towards mouse position
+        const directionX = mouseX - this.positionX;
+        const directionY = mouseY - this.positionY;
+        const magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
+        this.velocityX = (directionX / magnitude) * 0.5;
+        this.velocityY = (directionY / magnitude) * 0.5; 
+
+        this.createDomElement();
+        this.moveToMouse();
+    }
+
+    // create and append element to DOM
+    createDomElement() {
+        // create the element
+        this.domElement = document.createElement("div");
+
+        // add content or modify
+        this.domElement.id = "projectile";
+        this.domElement.style.width = this.width + "vw";
+        this.domElement.style.height = this.height + "vh";
+        this.domElement.style.left = this.positionX + "vw";
+        this.domElement.style.bottom = this.positionY + "vh";
+
+        // append to the dom
+        const stage = document.getElementById("stage");
+        stage.appendChild(this.domElement);
+    }
+
+    // move projectile to mouse position
+    moveToMouse() {
+
+        // if mouse position differs from projectile position, move accordingly
+        setInterval(() => {
+            this.positionX += this.velocityX;
+            this.positionY += this.velocityY;
+            this.domElement.style.left = this.positionX + "vw";
+            this.domElement.style.bottom = this.positionY + "vh";
+        }, 50);
     }
 }
 
@@ -174,10 +242,10 @@ document.addEventListener("keyup", (e) => {
     }
 });
 
+// limit movement speed of player
 setInterval(() => {
     if (keys.left) player.moveLeft();
     if (keys.right) player.moveRight();
     if (keys.up) player.moveUp();
     if (keys.down) player.moveDown();
-    requestAnimationFrame(movement);
 }, 100);

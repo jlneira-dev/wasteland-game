@@ -19,3 +19,8 @@ body {
     background-color: red;
     position: absolute;
 }
+
+#projectile {
+    background-color: white;
+    position: absolute;
+}
