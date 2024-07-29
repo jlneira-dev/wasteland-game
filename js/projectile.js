@@ -27,7 +27,7 @@ class Projectile {
         this.velocityY = (directionY / magnitude) * 0.5; 
 
         this.createDomElement();
-        this.moveToMouse();
+        this.startMovement();
     }
 
     // create and append element to DOM
@@ -48,7 +48,7 @@ class Projectile {
     }
 
     // move projectile to mouse position
-    moveToMouse() {
+    startMovement() {
         const movementInterval = setInterval(() => {
             if (this.checkCollision() || this.leavesGameArea()) {
                 clearInterval(movementInterval);
@@ -63,17 +63,25 @@ class Projectile {
         }, 25);
     }
 
+    // check if there is collision with enemy
     checkCollision() {
-        if (enemy.isHit(this)) {
-            counter++;
-            if (counter >= 3) {
-                enemy.removeEnemy();
+        if (enemies.length > 0) {
+            for (let i=enemies.length-1; i>=0; i++) {
+                if (enemies[i].isHit(this)) {
+                    this.domElement.remove();
+                    enemies[i].life--
+                    if (enemies[i].life <= 0) {
+                        enemies[i].removeEnemy();
+                        enemies.splice(i, 1);
+                    }
+                    return true;
+                } 
             }
-            return true;
         }
         return false;
     }
 
+    // ensure projectile does not leave game area
     leavesGameArea() {
         return (
             this.positionX < 8 ||

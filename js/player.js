@@ -64,10 +64,13 @@ class Player {
     // shoot projectile at enemy
     startShooting() {
         setInterval(() => {
-            new Projectile(this.positionX + this.width / 2, this.positionY + this.height);
+            if (enemies.length > 0) {
+                new Projectile(this.positionX + this.width / 2, this.positionY + this.height);
+            }
         }, 1000);
     }
 }
+
 
 // reset event listener keydown/keyup
 let keys = {

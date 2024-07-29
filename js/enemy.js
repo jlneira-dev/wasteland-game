@@ -11,6 +11,9 @@ class Enemy {
         // check if element was removed via collision
         this.removed = false;
 
+        // start with 3 lives
+        this.life = 3
+
         this.createDomElement();
         this.moveToPlayer();
     }
