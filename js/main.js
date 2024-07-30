@@ -18,7 +18,7 @@ setInterval(() => {
 // create skeletons when in room 2 and change rooms if player count reaches a certain amount, delete all enemies when room changed
 let spawnSkeletons = setInterval(() => {
     if (stage.imgURL === "../images/dungeon-room-2.jpeg" && enemies.length < 5) {
-        const newEnemy = new Enemy();
+        const newEnemy = new Skeleton("../images/skeleton.png");
         enemies.unshift(newEnemy);
     }
     if (player.killCount >= 2 && stage.imgURL === "../images/dungeon-room-2.jpeg" && player.positionY < 10 && player.positionX > 40 && player.positionX < 50) {
@@ -31,3 +31,14 @@ let spawnSkeletons = setInterval(() => {
         player.positionY = 90;
     }
 }, 2000);
+
+function spawnArchers (){
+    const newArcher = new Archer("../images/skeleton-archer.webp");
+    enemies.unshift(newArcher)
+}
+
+setInterval(() => {
+    if (stage.imgURL === "../images/dungeon-room-3.jpeg")
+        spawnArchers();
+        
+}, 1000)
