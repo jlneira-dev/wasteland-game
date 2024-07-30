@@ -8,6 +8,9 @@ class Player {
         this.positionX = 50 - this.width / 2;
         this.positionY = 50 - this.height / 2;
 
+        // set base amount of player kills
+        this.killCount = 0
+
         this.createDomElement();
         this.startShooting();
     }
@@ -67,7 +70,7 @@ class Player {
             if (enemies.length > 0) {
                 new Projectile(this.positionX + this.width / 2, this.positionY + this.height);
             }
-        }, 1000);
+        }, 750);
     }
 }
 
@@ -126,4 +129,4 @@ setInterval(() => {
     if (keys.right) player.moveRight();
     if (keys.up) player.moveUp();
     if (keys.down) player.moveDown();
-}, 100);
+}, 50);

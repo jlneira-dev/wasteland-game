@@ -56,7 +56,7 @@ class Enemy {
 
             this.domElement.style.left = this.positionX + "vw";
             this.domElement.style.bottom = this.positionY + "vh";
-        }, 200);
+        }, 150);
     }
 
     removeEnemy () {

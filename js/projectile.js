@@ -66,13 +66,14 @@ class Projectile {
     // check if there is collision with enemy
     checkCollision() {
         if (enemies.length > 0) {
-            for (let i=enemies.length-1; i>=0; i++) {
+            for (let i=enemies.length-1; i>=0; i--) {
                 if (enemies[i].isHit(this)) {
                     this.domElement.remove();
                     enemies[i].life--
                     if (enemies[i].life <= 0) {
                         enemies[i].removeEnemy();
                         enemies.splice(i, 1);
+                        player.killCount++
                     }
                     return true;
                 } 

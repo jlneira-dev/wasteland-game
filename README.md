@@ -29,11 +29,9 @@ Player loses if all lives lost, wins if defeats final boss.
     [X] Create DOM element
     [X] Create movement to enemy
 
-FIX COLLISION WITH ENEMIES
-
-[ ] Change rooms
-    [ ] Change game background
-    [ ] Change player position
+[X] Change rooms
+    [X] Change game background
+    [X] Change player position
 
 ## BONUSES (if possible):
 
