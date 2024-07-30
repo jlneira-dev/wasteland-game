@@ -10,24 +10,17 @@ document.addEventListener("mousemove", e => {
 });
 
 class Projectile {
-    constructor() {
+    constructor(target, imgURL) {
         // set size of projectile
-        this.width = 3;
-        this.height = 3;
+        this.width = 0;
+        this.height = 0;
 
         // set position of projectile
-        this.positionX = player.positionX + player.width/2;
-        this.positionY = player.positionY + player.height/2;
+        this.positionX = 0;
+        this.positionY = 0;
 
-        // calculate direction vector towards mouse position
-        const directionX = mouseX - this.positionX;
-        const directionY = mouseY - this.positionY;
-        const magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
-        this.velocityX = (directionX / magnitude) * 0.5;
-        this.velocityY = (directionY / magnitude) * 0.5; 
-
-        this.createDomElement();
-        this.startMovement();
+        this.target = target;
+        this.imgURL = imgURL;
     }
 
     // create and append element to DOM
@@ -47,32 +40,16 @@ class Projectile {
         stage.appendChild(this.domElement);
     }
 
-    // move projectile to mouse position
-    startMovement() {
-        const movementInterval = setInterval(() => {
-            if (this.checkCollision() || this.leavesGameArea()) {
-                clearInterval(movementInterval);
-                this.domElement.remove();
-                return;
-            }
-
-            this.positionX += this.velocityX;
-            this.positionY += this.velocityY;
-            this.domElement.style.left = this.positionX + "vw";
-            this.domElement.style.bottom = this.positionY + "vh";
-        }, 25);
-    }
-
     // check if there is collision with enemy
     checkCollision() {
-        if (enemies.length > 0) {
-            for (let i=enemies.length-1; i>=0; i--) {
-                if (enemies[i].isHit(this)) {
+        if (this.target.length > 0) {
+            for (let i=this.target.length-1; i>=0; i--) {
+                if (this.target[i].isHit(this)) {
                     this.domElement.remove();
-                    enemies[i].life--
-                    if (enemies[i].life <= 0) {
-                        enemies[i].removeEnemy();
-                        enemies.splice(i, 1);
+                    this.target[i].life--
+                    if (this.target[i].life <= 0) {
+                        this.target[i].removeElement();
+                        this.target.splice(i, 1);
                         player.killCount++
                     }
                     return true;
@@ -90,5 +67,81 @@ class Projectile {
             this.positionY < 10 ||
             this.positionY > 90
         );
+    }
+}
+
+class playerProjectile extends Projectile {
+    constructor (target, imgURL) {
+        super (target, imgURL);
+        // set size of projectile
+        this.width = 3;
+        this.height = 3;
+
+        // set position of projectile
+        this.positionX = player.positionX + player.width/2;
+        this.positionY = player.positionY + player.height/2;
+
+        // calculate direction vector towards mouse position
+        const directionX = mouseX - this.positionX;
+        const directionY = mouseY - this.positionY;
+        const magnitude = Math.sqrt(directionX * directionX + directionY * directionY);
+        this.velocityX = (directionX / magnitude) * 0.5;
+        this.velocityY = (directionY / magnitude) * 0.5; 
+
+        this.createDomElement();
+        this.setProjectileImage();
+        this.startMovement();
+    }
+
+    setProjectileImage () {
+        this.domElement.style.backgroundImage = `url(${this.imgURL})`;
+    }
+    
+    startMovement() {
+        const movementInterval = setInterval(() => {
+            if (this.checkCollision() || this.leavesGameArea()) {
+                clearInterval(movementInterval);
+                this.domElement.remove();
+                return;
+            }
+
+            this.positionX += this.velocityX;
+            this.positionY += this.velocityY;
+            this.domElement.style.left = this.positionX + "vw";
+            this.domElement.style.bottom = this.positionY + "vh";
+        }, 25);
+    }
+}
+
+class enemyProjectile extends Projectile {
+    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80, 90]; // Predefined positions
+    static currentIndex = 0; // Current index in the positions array
+
+    constructor (target, imgURL) {
+        super (target, imgURL);
+        // set size of projectile
+        this.width = 4;
+        this.height = 10;
+
+        // set positionX for archers based on predefined positions
+        this.positionX = enemyProjectile.positionsX[enemyProjectile.currentIndex];
+        enemyProjectile.currentIndex = (enemyProjectile.currentIndex + 1) % enemyProjectile.positionsX.length; // Cycle through positions
+
+        this.positionY = 11;
+
+        this.createDomElement();
+        this.setProjectileImage();
+        this.startMovement();
+    }
+
+    setProjectileImage () {
+        this.domElement.style.backgroundImage = `url(${this.imgURL})`;
+    }
+
+    startMovement() {
+        setInterval(() => {
+            this.positionY++;
+            this.domElement.style.bottom = this.positionY + "vh";
+        }, 200);
     }
 }

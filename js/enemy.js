@@ -1,10 +1,10 @@
 class Enemy {
     constructor(imgURL) {
-        // set size of projectile
+        // set size of enemy
         this.width = 5;
         this.height = 10;
 
-        // set start position of projectile
+        // set start position of enemy
         this.positionX = Math.floor(Math.random() * (90 - this.width + 1) + this.width);
         this.positionY = 10;
 
@@ -18,7 +18,7 @@ class Enemy {
         this.imgURL = imgURL;
     }
 
-    setEnemyBackgroundImage() {
+    setEnemyImage() {
         this.domElement.style.backgroundImage = `url(${this.imgURL})`; 
     }
     // create and append element to DOM
@@ -38,7 +38,7 @@ class Enemy {
         stage.appendChild(this.domElement);
     }
 
-    removeEnemy () {
+    removeElement () {
         this.removed = true;
         this.domElement.remove();
     }
@@ -69,7 +69,7 @@ class Skeleton extends Enemy {
         this.positionY = 10;
 
         this.createDomElement();
-        this.setEnemyBackgroundImage();
+        this.setEnemyImage();
         this.moveToPlayer();
     }
 
@@ -97,23 +97,32 @@ class Skeleton extends Enemy {
         }, 150);
     }
 }
+
 class Archer extends Enemy {
-    constructor (imgURL){
-        super (imgURL);
+    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80, 90]; // Predefined positions
+    static currentIndex = 0; // Current index in the positions array
+
+    constructor(imgURL) {
+        super(imgURL);
 
         // set size of archers
         this.width = 4;
         this.height = 15;
 
-        // set position of archers
-        this.positionX = 10; 
-        this.positionY = 10; 
+        // set positionX for archers based on predefined positions
+        this.positionX = Archer.positionsX[Archer.currentIndex];
+        Archer.currentIndex = (Archer.currentIndex + 1) % Archer.positionsX.length; // Cycle through positions
+
+        this.positionY = 10;
 
         this.createDomElement();
-        this.setEnemyBackgroundImage();
+        this.setEnemyImage();
+        this.shootUp();
     }
 
     shootUp() {
-
+        setInterval (() => {
+            new enemyProjectile(player, "../images/arrow.png");
+        }, Math.floor(Math.random() * (2000 - 1500 + 1) + 1500));
     }
 }

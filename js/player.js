@@ -11,6 +11,12 @@ class Player {
         // set base amount of player kills
         this.killCount = 0
 
+        // set life points for player
+        this.life = 100
+
+        // check if player was killed via collision
+        this.removed = false;
+
         this.createDomElement();
         this.startShooting();
     }
@@ -68,9 +74,25 @@ class Player {
     startShooting() {
         setInterval(() => {
             if (enemies.length > 0) {
-                new Projectile(this.positionX + this.width / 2, this.positionY + this.height);
+                new playerProjectile(enemies, "../images/fireball.png");
             }
         }, 750);
+    }
+
+    isHit(projectile) {
+        
+        // no collision if enemy is removed
+        if (this.removed) return false;
+
+        return !(projectile.positionX > this.positionX + this.width ||
+            projectile.positionX + projectile.width < this.positionX ||
+            projectile.positionY > this.positionY + this.height ||
+            projectile.positionY + projectile.height < this.positionY);
+    }
+
+    removeElement () {
+        this.removed = true;
+        this.domElement.remove();
     }
 }
 
