@@ -39,12 +39,5 @@ Player loses if all lives lost, wins if defeats final boss.
     [ ] Change player image
     [ ] Change projectile image, damage & speed
 
-[ ] Add special ability
-    [ ] Change player extension archer or wizard
-    [ ] Create extension to projectile class
-
-[ ] Add item loot
-    [ ] Health + 1 / Third ability / Evade ability
-
-[ ] Extra boss if make a different option
+[ ] Create extension to enemy class (archer)
 

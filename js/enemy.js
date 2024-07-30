@@ -76,3 +76,11 @@ class Enemy {
             projectile.positionY + projectile.height < this.positionY);
     }
 }
+
+class Archer extends Enemy {
+    constructor (){
+        super ();
+        this.width = 4;
+        this.height = 15;
+    }
+}
