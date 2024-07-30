@@ -25,10 +25,15 @@ function changeStage(newStage, newX, newY) {
     clearEnemies();
 }
 
-// check for stage changes based on player position
+// change relevant stages based on player position
 setInterval(() => {
     if (stage.imgURL === "../images/dungeon-room-1.jpeg" && player.positionX < 10 && player.positionY > 40 && player.positionY < 50) {
         changeStage("../images/dungeon-room-2.jpeg", 90, player.positionY);
+    }
+
+    if (player.killCount >= 4 && stage.imgURL === "../images/dungeon-room-3.jpeg" && player.positionX > 80 && player.positionY > 40 && player.positionY < 50) {
+        player.killCount = 0;
+        changeStage("../images/dungeon-room-4.jpeg", 10, player.positionY);
     }
 }, 1000);
 
@@ -47,15 +52,12 @@ spawnSkeletons = setInterval(() => {
 }, 1000);
 
 // create archers when in room 3
-spawnArchers = setInterval(() => {
-    if (stage.imgURL === "../images/dungeon-room-3.jpeg" && enemies.length < 8) {
-        const newArcher = new Archer("../images/skeleton-archer.webp");
-        enemies.unshift(newArcher);
-    }
-
-    // change rooms if killed over a certain amount
-    if (player.killCount >= 4 && stage.imgURL === "../images/dungeon-room-3.jpeg" && player.positionX > 80 && player.positionY > 40 && player.positionY < 50) {
-        player.killCount = 0;
-        changeStage("../images/dungeon-room-4.jpeg", 10, player.positionY);
+spawnArchers = setInterval (() => {
+    if (stage.imgURL === "../images/dungeon-room-3.jpeg") {
+        for (let i=0; i<=8; i++) {
+            const newArcher = new Archer("../images/skeleton-archer.webp");
+            enemies.unshift(newArcher);
+        }
+        clearInterval(spawnArchers);
     }
 }, 1000);

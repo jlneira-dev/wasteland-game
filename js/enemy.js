@@ -121,8 +121,11 @@ class Archer extends Enemy {
     }
 
     shootUp() {
-        setInterval (() => {
+        const startShoot = setInterval (() => {
             new enemyProjectile(player, "../images/arrow.png");
-        }, Math.floor(Math.random() * (2000 - 1500 + 1) + 1500));
+            if (this.removed) {
+                clearInterval(startShoot);
+            }
+        }, 3000);
     }
 }
