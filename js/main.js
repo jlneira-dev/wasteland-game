@@ -1,4 +1,5 @@
 let stage = new Stage("./images/dungeon-room-1.jpeg");
+stage.showStartMessage();
 const player = new Player();
 let enemies = [];
 let spawnSkeletons, spawnArchers;

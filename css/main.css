@@ -35,3 +35,22 @@ body {
     background-size: cover;
     position: absolute;
 }
+
+#start-message {
+    position: absolute;
+    background-color: burlywood;
+    z-index: 1;
+    width: 80vh;
+    height: 80vh;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    border: 1vh solid black;
+    border-radius: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
