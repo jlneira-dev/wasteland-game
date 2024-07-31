@@ -53,10 +53,18 @@ spawnSkeletons = setInterval(() => {
 
 // create archers when in room 3
 spawnArchers = setInterval(() => {
-    if (stage.imgURL === "./images/dungeon-room-3.jpeg") {
-        for (let i = 0; i < 8; i++) {
+    if (stage.imgURL === "./images/dungeon-room-3.jpeg" && enemies.length < 8) {
+
+        // create vertical-shooting archers
+        for (let i = 0; i < 7; i++) {
             const newArcher = new Archer("./images/skeleton-archer.webp");
             enemies.unshift(newArcher);
+        }
+        
+        // reate horizontal-shooting archers 
+        for (let i = 0; i < 4; i++) {
+            const newHorizontalArcher = new Archer("./images/skeleton-archer.webp", true);
+            enemies.unshift(newHorizontalArcher);
         }
         clearInterval(spawnArchers);
     }

@@ -99,40 +99,51 @@ class Skeleton extends Enemy {
 }
 
 class Archer extends Enemy {
-    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80]; // Predefined positions
-    static currentIndex = 0; // Current index in the positions array
+    static positionsX = [20, 30, 40, 50, 60, 70, 80]; 
+    static positionsY = [20, 40, 60, 80]; 
+    static currentIndexX = 0; 
+    static currentIndexY = 0; 
 
-    constructor(imgURL) {
+    constructor(imgURL, shootHorizontally = false) {
         super(imgURL);
 
         // set size of archers
         this.width = 4;
         this.height = 15;
 
-        // set positionX for archers based on predefined positions
-        this.positionX = Archer.positionsX[Archer.currentIndex];
-        Archer.currentIndex = (Archer.currentIndex + 1) % Archer.positionsX.length; // Cycle through positions
+        // set positionX and positionY based on whether the archer shoots horizontally or vertically
+        if (shootHorizontally) {
+            this.positionX = 10; 
+            this.positionY = Archer.positionsY[Archer.currentIndexY];
+            Archer.currentIndexY = (Archer.currentIndexY + 1) % Archer.positionsY.length; 
+        } else {
+            this.positionX = Archer.positionsX[Archer.currentIndexX];
+            this.positionY = 10; 
+            Archer.currentIndexX = (Archer.currentIndexX + 1) % Archer.positionsX.length; 
+        }
 
-        this.positionY = 10;
+        this.shootHorizontally = shootHorizontally; // set the shooting direction
 
         this.createDomElement();
         this.setEnemyImage();
-        this.shootUp();
+        this.shoot();
     }
 
-    shootUp() {
+    shoot() {
         this.startShoot = setInterval(() => {
             if (this.removed) {
                 clearInterval(this.startShoot);
                 return;
             }
-            new enemyProjectile(player, "./images/arrow.png");
-        }, 3000);
-    }
 
-    removeElement() {
-        this.removed = true;
-        clearInterval(this.startShoot);
-        this.domElement.remove();
+            // create a new projectile based on the shooting direction
+            if (this.shootHorizontally) {
+                // create a new projectile moving horizontally
+                new enemyProjectile(player, this.positionX + this.width / 2, this.positionY + this.height/2, "./images/arrow-horizontal.png", true);
+            } else {
+                // create a new projectile moving vertically
+                new enemyProjectile(player, this.positionX, this.positionY + this.height / 2, "./images/arrow-vertical.png");
+            }
+        }, 1500);
     }
 }

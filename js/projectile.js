@@ -114,34 +114,45 @@ class playerProjectile extends Projectile {
 }
 
 class enemyProjectile extends Projectile {
-    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80, 90]; // Predefined positions
-    static currentIndex = 0; // Current index in the positions array
+    constructor(target, positionX, positionY, imgURL, isHorizontal = false) {
+        super(target, imgURL);
 
-    constructor (target, imgURL) {
-        super (target, imgURL);
         // set size of projectile
-        this.width = 4;
-        this.height = 10;
+        this.width = 5;
+        this.height = 5;
 
-        // set positionX for archers based on predefined positions
-        this.positionX = enemyProjectile.positionsX[enemyProjectile.currentIndex];
-        enemyProjectile.currentIndex = (enemyProjectile.currentIndex + 1) % enemyProjectile.positionsX.length; // Cycle through positions
+        // set initial position of projectile
+        this.positionX = positionX;
+        this.positionY = positionY;
 
-        this.positionY = 11;
+        this.isHorizontal = isHorizontal; // determine if projectile should move horizontally
 
         this.createDomElement();
         this.setProjectileImage();
         this.startMovement();
     }
 
-    setProjectileImage () {
+    setProjectileImage() {
         this.domElement.style.backgroundImage = `url(${this.imgURL})`;
     }
 
     startMovement() {
-        setInterval(() => {
-            this.positionY++;
-            this.domElement.style.bottom = this.positionY + "vh";
-        }, 200);
+        const movementInterval = setInterval(() => {
+            // check if the projectile should be removed
+            if (this.leavesGameArea() || this.checkCollision()) {
+                clearInterval(movementInterval);
+                this.domElement.remove();
+                return;
+            }
+
+            // move the projectile based on its direction
+            if (this.isHorizontal) {
+                this.positionX++;
+                this.domElement.style.left = this.positionX + "vw";
+            } else {
+                this.positionY++;
+                this.domElement.style.bottom = this.positionY + "vh";
+            }
+        }, 25); 
     }
 }
