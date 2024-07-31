@@ -30,7 +30,7 @@ class Stage {
         this.startExplanation = document.createElement("h3");
         this.startExplanation.style.textAlign = "center";
         this.startExplanation.style.padding = "5vh";
-        this.startExplanation.innerText = "DO NOT DIE! Press the W, A, S, D keys to move around the area. If the enemies or their projectiles catch you, you are gone for good! You will be lucky enough to have three lives, but so will your enemies."
+        this.startExplanation.innerText = "DO NOT DIE! Press the W, A, S, D keys to move around the area. You will shoot constant fireballs where your mouse is, so aim properly! If the enemies or their projectiles catch you, you are gone for good. You will be lucky enough to have three lives, use them well to save the princess's twin!"
         this.startMessage.appendChild(this.startExplanation);
 
         // create confirmation text
@@ -49,16 +49,8 @@ class Stage {
         this.startButton.style.border = "0.5vh solid black"
         this.startButton.style.borderRadius = "1vh";
         this.startButton.addEventListener("click", () => {
-            this.startGame();
+            this.startMessage.style.display = "none";
         });
         this.startMessage.appendChild(this.startButton);
-    }
-
-    startGame() {
-        // Hide the start message
-        this.startMessage.style.display = "none";
-
-        // Additional logic to start the game goes here
-        console.log("Game Started!");
     }
 }
