@@ -33,11 +33,7 @@ Player loses if all lives lost, wins if defeats final boss.
     [X] Change game background
     [X] Change player position
 
-## BONUSES (if possible):
+## TO-DO:
 
-[ ] Create extensions to player class (archer, wizard)
-    [ ] Change player image
-    [ ] Change projectile image, damage & speed
-
-[ ] Create extension to enemy class (archer)
+[ ] Create screen if character loses all lives
 

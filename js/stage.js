@@ -43,7 +43,7 @@ class Stage {
         // create start button
         this.startButton = document.createElement("button");
         this.startButton.innerText = "Start Game";
-        this.startButton.style.marginTop = "20px";
+        this.startButton.style.marginTop = "1vh";
         this.startButton.style.padding = "1vh 2vh";
         this.startButton.style.width = "20vh";
         this.startButton.style.border = "0.5vh solid black"
@@ -53,4 +53,50 @@ class Stage {
         });
         this.startMessage.appendChild(this.startButton);
     }
+
+    showEndMessage() {
+        // create the element
+        this.endMessage = document.createElement("div");
+
+        // add content or modify
+        this.endMessage.id = "start-message";
+
+        // append to the dom
+        const stage = document.getElementById("stage");
+        stage.appendChild(this.endMessage);
+
+        // create end title text
+        this.endTitle = document.createElement("h1");
+        this.endTitle.style.textAlign = "center";
+        this.endTitle.innerText = "Mission accomplished!"
+        this.endMessage.appendChild(this.endTitle);
+
+        // create finish congratulations
+        this.endExplanation = document.createElement("h3");
+        this.endExplanation.style.textAlign = "center";
+        this.endExplanation.style.padding = "5vh";
+        this.endExplanation.innerText = "You did well! You saved the second princess and she can now run back to her sister! Feel proud of yourself wizard, this was a tough fight."
+        this.endMessage.appendChild(this.endExplanation);
+
+        // create end confirmation text
+        this.endConfirmation = document.createElement("h4");
+        this.endConfirmation.style.textAlign = "center";
+        this.endConfirmation.style.padding = "0 5vh";
+        this.endConfirmation.innerText = "Do you want to play again?"
+        this.endMessage.appendChild(this.endConfirmation);
+
+        // create end button
+        this.endButton = document.createElement("button");
+        this.endButton.innerText = "Play Again";
+        this.endButton.style.marginTop = "1vh";
+        this.endButton.style.padding = "1vh 2vh";
+        this.endButton.style.width = "20vh";
+        this.endButton.style.border = "0.5vh solid black"
+        this.endButton.style.borderRadius = "1vh";
+        this.endButton.addEventListener("click", () => {
+            window.location.href = "./index.html"; // replace with the URL of your original HTML website
+        });
+        this.endMessage.appendChild(this.endButton);
+    }
 }
+

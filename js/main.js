@@ -35,6 +35,9 @@ setInterval(() => {
     if (player.killCount >= 4 && stage.imgURL === "./images/dungeon-room-3.jpeg" && player.positionX > 80 && player.positionY > 40 && player.positionY < 50) {
         player.killCount = 0;
         changeStage("./images/dungeon-room-4.jpeg", 10, player.positionY);
+        setTimeout(() => {
+            stage.showEndMessage();
+        }, 4000);
     }
 }, 1000);
 
