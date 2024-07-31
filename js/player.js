@@ -74,20 +74,20 @@ class Player {
     startShooting() {
         setInterval(() => {
             if (enemies.length > 0) {
-                new playerProjectile(enemies, "../images/fireball.png");
+                new playerProjectile(enemies, "./images/fireball.png");
             }
         }, 750);
     }
 
-    isHit(projectile) {
+    isHit(element) {
         
         // no collision if enemy is removed
         if (this.removed) return false;
 
-        return !(projectile.positionX > this.positionX + this.width ||
-            projectile.positionX + projectile.width < this.positionX ||
-            projectile.positionY > this.positionY + this.height ||
-            projectile.positionY + projectile.height < this.positionY);
+        return !(element.positionX > this.positionX + this.width ||
+            element.positionX + element.width < this.positionX ||
+            element.positionY > this.positionY + this.height ||
+            element.positionY + element.height < this.positionY);
     }
 
     removeElement () {

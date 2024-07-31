@@ -44,15 +44,15 @@ class Enemy {
     }
 
     // decide if enemy is hit by projectile
-    isHit(projectile) {
+    isHit(element) {
         
         // no collision if enemy is removed
         if (this.removed) return false;
 
-        return !(projectile.positionX > this.positionX + this.width ||
-            projectile.positionX + projectile.width < this.positionX ||
-            projectile.positionY > this.positionY + this.height ||
-            projectile.positionY + projectile.height < this.positionY);
+        return !(element.positionX > this.positionX + this.width ||
+            element.positionX + element.width < this.positionX ||
+            element.positionY > this.positionY + this.height ||
+            element.positionY + element.height < this.positionY);
     }
 }
 
@@ -99,7 +99,7 @@ class Skeleton extends Enemy {
 }
 
 class Archer extends Enemy {
-    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80, 90]; // Predefined positions
+    static positionsX = [10, 20, 30, 40, 50, 60, 70, 80]; // Predefined positions
     static currentIndex = 0; // Current index in the positions array
 
     constructor(imgURL) {
@@ -121,11 +121,18 @@ class Archer extends Enemy {
     }
 
     shootUp() {
-        const startShoot = setInterval (() => {
-            new enemyProjectile(player, "../images/arrow.png");
+        this.startShoot = setInterval(() => {
             if (this.removed) {
-                clearInterval(startShoot);
+                clearInterval(this.startShoot);
+                return;
             }
+            new enemyProjectile(player, "./images/arrow.png");
         }, 3000);
+    }
+
+    removeElement() {
+        this.removed = true;
+        clearInterval(this.startShoot);
+        this.domElement.remove();
     }
 }
