@@ -6,12 +6,6 @@ const player = new Player();
 let enemies = [];
 let spawnSkeletons, spawnArchers;
 
-setInterval(() => {
-    if (player.removed === "true") {
-
-    }
-})
-
 // function to clear enemies
 function clearEnemies() {
     for (let i = enemies.length - 1; i >= 0; i--) {
