@@ -94,6 +94,48 @@ class Player {
 
     removeElement () {
         this.removed = true;
+        
+        this.lostMessage = document.createElement("div");
+        
+        // add content or modify
+        this.lostMessage.id = "lost-message";
+        
+        // append to the dom
+        const stage = document.getElementById("stage");
+        stage.appendChild(this.lostMessage);
+        
+        // create end title text
+        this.lostTitle = document.createElement("h1");
+        this.lostTitle.style.textAlign = "center";
+        this.lostTitle.innerText = "You died!"
+        this.lostMessage.appendChild(this.lostTitle);
+        
+        // create finish congratulations
+        this.lostExplanation = document.createElement("h3");
+        this.lostExplanation.style.textAlign = "center";
+        this.lostExplanation.style.padding = "5vh";
+        this.lostExplanation.innerText = "Sometimes though you try hard, you do not succeed. Because of your failure, the princess is now dead. It is all your fault. Don't cry to me about it."
+        this.lostMessage.appendChild(this.lostExplanation);
+        
+        // create end confirmation text
+        this.lostConfirmation = document.createElement("h4");
+        this.lostConfirmation.style.textAlign = "center";
+        this.lostConfirmation.style.padding = "0 5vh";
+        this.lostConfirmation.innerText = "Do you want to try again?"
+        this.lostMessage.appendChild(this.lostConfirmation);
+        
+        // create end button
+        this.lostButton = document.createElement("button");
+        this.lostButton.innerText = "Play Again";
+        this.lostButton.style.marginTop = "1vh";
+        this.lostButton.style.padding = "1vh 2vh";
+        this.lostButton.style.width = "20vh";
+        this.lostButton.style.border = "0.5vh solid black"
+        this.lostButton.style.borderRadius = "1vh";
+        this.lostButton.addEventListener("click", () => {
+            window.location.href = "./index.html"; 
+        });
+        this.lostMessage.appendChild(this.lostButton);
         this.domElement.remove();
     }
 
