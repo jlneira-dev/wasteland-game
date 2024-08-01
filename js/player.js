@@ -1,7 +1,7 @@
 class Player {
     constructor() {
         // set size of player
-        this.width = 10;
+        this.width = 4;
         this.height = 14;
 
         // set position of player
@@ -9,10 +9,10 @@ class Player {
         this.positionY = 50 - this.height / 2;
 
         // set base amount of player kills
-        this.killCount = 0
+        this.killCount = 0;
 
         // set life points for player
-        this.life = 100
+        this.life = 5;
 
         // check if player was killed via collision
         this.removed = false;
@@ -75,8 +75,9 @@ class Player {
         setInterval(() => {
             if (enemies.length > 0) {
                 const newBullet = new playerProjectile(enemies, "./images/fireball.png");
-                bulletArr.push(newBullet)
+                fireballArr.push(newBullet)
             }
+            console.log(this.life)
         }, 750);
     }
 
@@ -95,6 +96,15 @@ class Player {
         this.removed = true;
         this.domElement.remove();
     }
+
+    // handle player getting hit
+    handleHit() {
+        this.life--; // reduce the player's life points
+        if (this.life <= 0) {
+            this.removeElement(); // remove the player if life points drop to zero
+        }
+    }
+
 }
 
 

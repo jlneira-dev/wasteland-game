@@ -11,31 +11,23 @@ document.addEventListener("mousemove", e => {
 
 class Projectile {
     constructor(target, imgURL) {
-        // set size of projectile
+        // set size and position of projectile
         this.width = 0;
         this.height = 0;
-
-        // set position of projectile
         this.positionX = 0;
         this.positionY = 0;
-
         this.target = target;
         this.imgURL = imgURL;
     }
 
     // create and append element to DOM
     createDomElement() {
-        // create the element
         this.domElement = document.createElement("div");
-
-        // add content or modify
         this.domElement.id = "projectile";
         this.domElement.style.width = this.width + "vw";
         this.domElement.style.height = this.height + "vh";
         this.domElement.style.left = this.positionX + "vw";
         this.domElement.style.bottom = this.positionY + "vh";
-
-        // append to the dom
         const stage = document.getElementById("stage");
         stage.appendChild(this.domElement);
     }
@@ -43,17 +35,17 @@ class Projectile {
     // check if there is collision with enemy
     checkCollision() {
         if (this.target.length > 0) {
-            for (let i=this.target.length-1; i>=0; i--) {
+            for (let i = this.target.length - 1; i >= 0; i--) {
                 if (this.target[i].isHit(this)) {
                     this.domElement.remove();
-                    this.target[i].life--
+                    this.target[i].life--;
                     if (this.target[i].life <= 0) {
                         this.target[i].removeElement();
                         this.target.splice(i, 1);
-                        player.killCount++
+                        player.killCount++;
                     }
                     return true;
-                } 
+                }
             }
         }
         return false;
@@ -117,15 +109,11 @@ class enemyProjectile extends Projectile {
     constructor(target, positionX, positionY, imgURL, isHorizontal = false) {
         super(target, imgURL);
 
-        // set size of projectile
-        this.width = 5;
+        this.width = 1;
         this.height = 5;
-
-        // set initial position of projectile
         this.positionX = positionX;
         this.positionY = positionY;
-
-        this.isHorizontal = isHorizontal; // determine if projectile should move horizontally
+        this.isHorizontal = isHorizontal;
 
         this.createDomElement();
         this.setProjectileImage();
@@ -138,21 +126,27 @@ class enemyProjectile extends Projectile {
 
     startMovement() {
         const movementInterval = setInterval(() => {
-            // check if the projectile should be removed
             if (this.leavesGameArea() || this.checkCollision()) {
                 clearInterval(movementInterval);
                 this.domElement.remove();
                 return;
             }
 
-            // move the projectile based on its direction
             if (this.isHorizontal) {
-                this.positionX++;
+                this.positionX += 1;
                 this.domElement.style.left = this.positionX + "vw";
             } else {
-                this.positionY++;
+                this.positionY += 1;
                 this.domElement.style.bottom = this.positionY + "vh";
             }
-        }, 25); 
+        }, 25);
+    }
+
+    checkCollision() {
+        if (player.isHit(this)) {
+            player.handleHit(); // handle the player getting hit
+            return true;
+        }
+        return false;
     }
 }

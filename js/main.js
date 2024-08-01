@@ -1,6 +1,7 @@
 let stage = new Stage("./images/dungeon-room-1.jpeg");
 stage.showStartMessage();
-let bulletArr = [];
+let fireballArr = [];
+let arrowArr = [];
 const player = new Player();
 let enemies = [];
 let spawnSkeletons, spawnArchers;
@@ -21,9 +22,13 @@ function clearEnemies() {
 
 // function to clear bullets
 function clearBullets() {
-    for (let i = bulletArr.length - 1; i >= 0; i--) {
-        bulletArr[i].domElement.remove();
-        bulletArr.splice(i, 1);
+    for (let i = fireballArr.length - 1; i >= 0; i--) {
+        fireballArr[i].domElement.remove();
+        fireballArr.splice(i, 1);
+    }
+    for (let i = arrowArr.length - 1; i >= 0; i--) {
+        arrowArr[i].domElement.remove();
+        arrowArr.splice(i, 1);
     }
 }
 

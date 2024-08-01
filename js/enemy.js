@@ -57,8 +57,8 @@ class Enemy {
 }
 
 class Skeleton extends Enemy {
-    constructor (imgURL){
-        super (imgURL);
+    constructor(imgURL) {
+        super(imgURL);
 
         // set size of skeletons
         this.width = 5;
@@ -75,26 +75,33 @@ class Skeleton extends Enemy {
 
     // move enemy to player
     moveToPlayer() {
-        setInterval (() => {
-
+        const movementInterval = setInterval(() => {
             // stop movement if enemy is removed
-            if (this.removed) return;
+            if (this.removed) {
+                clearInterval(movementInterval);
+                return;
+            }
 
-            // move enemy right if player is further right
-            if (player.positionX > this.positionX) this.positionX++; 
-
-            // move enemy left if player is further left
+            // move enemy based on player's position
+            if (player.positionX > this.positionX) this.positionX++;
             if (player.positionX < this.positionX) this.positionX--;
-
-            // move enemy up if player is further up
             if (player.positionY > this.positionY) this.positionY++;
-
-            // move enemy down if player is further down
             if (player.positionY < this.positionY) this.positionY--;
 
             this.domElement.style.left = this.positionX + "vw";
             this.domElement.style.bottom = this.positionY + "vh";
+
+            // check collision with player
+            if (player.isHit(this)) {
+                this.handleHit(); // handle skeleton getting hit
+                player.handleHit(); // handle player getting hit
+            }
         }, 150);
+    }
+
+    // handle skeleton getting hit
+    handleHit() {
+        this.removeElement(); // remove the skeleton from the game
     }
 }
 
@@ -142,8 +149,8 @@ class Archer extends Enemy {
             }
 
             // create a new projectile moving vertically
-            new enemyProjectile(player, this.positionX, this.positionY + this.height / 2, "./images/arrow-vertical.png");
-
+            const newArrow = new enemyProjectile(player, this.positionX, this.positionY + this.height / 2, "./images/arrow-vertical.png");
+            arrowArr.push(newArrow)
             // move the archer after shooting
             this.move();
         }, 500);
