@@ -99,34 +99,39 @@ class Skeleton extends Enemy {
 }
 
 class Archer extends Enemy {
-    static positionsX = [20, 30, 40, 50, 60, 70, 80]; 
-    static positionsY = [20, 40, 60, 80]; 
-    static currentIndexX = 0; 
-    static currentIndexY = 0; 
+    static positionsX = [20, 30, 40, 50, 60, 70, 80];
+    static currentIndex = 0;
 
-    constructor(imgURL, shootHorizontally = false) {
+    constructor(imgURL) {
         super(imgURL);
 
         // set size of archers
         this.width = 4;
         this.height = 15;
 
-        // set positionX and positionY based on whether the archer shoots horizontally or vertically
-        if (shootHorizontally) {
-            this.positionX = 10; 
-            this.positionY = Archer.positionsY[Archer.currentIndexY];
-            Archer.currentIndexY = (Archer.currentIndexY + 1) % Archer.positionsY.length; 
-        } else {
-            this.positionX = Archer.positionsX[Archer.currentIndexX];
-            this.positionY = 10; 
-            Archer.currentIndexX = (Archer.currentIndexX + 1) % Archer.positionsX.length; 
-        }
+        // set initial position of archers
+        this.startPositionX = Archer.positionsX[Archer.currentIndex];
+        this.positionX = this.startPositionX;
+        this.positionY = 10;
+        Archer.currentIndex = (Archer.currentIndex + 1) % Archer.positionsX.length;
 
-        this.shootHorizontally = shootHorizontally; // set the shooting direction
+        this.direction = -1; // -1 for moving left, 1 for moving right
 
         this.createDomElement();
         this.setEnemyImage();
         this.shoot();
+    }
+
+    // move archer left or right depending on start position
+    move() {
+        if (this.direction === -1 && this.positionX <= this.startPositionX - 10) {
+            this.direction = 1; // change direction to move right
+        } else if (this.direction === 1 && this.positionX >= this.startPositionX) {
+            this.direction = -1; // change direction to move left
+        }
+
+        this.positionX += this.direction;
+        this.domElement.style.left = this.positionX + "vw";
     }
 
     shoot() {
@@ -136,14 +141,11 @@ class Archer extends Enemy {
                 return;
             }
 
-            // create a new projectile based on the shooting direction
-            if (this.shootHorizontally) {
-                // create a new projectile moving horizontally
-                new enemyProjectile(player, this.positionX + this.width / 2, this.positionY + this.height/2, "./images/arrow-horizontal.png", true);
-            } else {
-                // create a new projectile moving vertically
-                new enemyProjectile(player, this.positionX, this.positionY + this.height / 2, "./images/arrow-vertical.png");
-            }
-        }, 1500);
+            // create a new projectile moving vertically
+            new enemyProjectile(player, this.positionX, this.positionY + this.height / 2, "./images/arrow-vertical.png");
+
+            // move the archer after shooting
+            this.move();
+        }, 500);
     }
 }

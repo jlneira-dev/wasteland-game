@@ -1,5 +1,6 @@
 let stage = new Stage("./images/dungeon-room-1.jpeg");
 stage.showStartMessage();
+let bulletArr = [];
 const player = new Player();
 let enemies = [];
 let spawnSkeletons, spawnArchers;
@@ -18,12 +19,21 @@ function clearEnemies() {
     }
 }
 
+// function to clear bullets
+function clearBullets() {
+    for (let i = bulletArr.length - 1; i >= 0; i--) {
+        bulletArr[i].domElement.remove();
+        bulletArr.splice(i, 1);
+    }
+}
+
 // function to change stage
 function changeStage(newStage, newX, newY) {
     stage = new Stage(newStage);
     player.positionX = newX;
     player.positionY = newY;
     clearEnemies();
+    clearBullets();
 }
 
 // change relevant stages based on player position

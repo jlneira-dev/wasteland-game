@@ -74,7 +74,8 @@ class Player {
     startShooting() {
         setInterval(() => {
             if (enemies.length > 0) {
-                new playerProjectile(enemies, "./images/fireball.png");
+                const newBullet = new playerProjectile(enemies, "./images/fireball.png");
+                bulletArr.push(newBullet)
             }
         }, 750);
     }

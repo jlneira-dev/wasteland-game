@@ -6,7 +6,7 @@ The enemies attack the player by moving towards it.
 
 Final room includes bossfight, with ranged enemies instead of melee enemies.
 
-Player loses if all lives lost, wins if defeats final boss.
+Player loses if all lives lost, wins if defeats final room.
 
 ## MILESTONES:
 
