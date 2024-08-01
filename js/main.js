@@ -5,6 +5,8 @@ let arrowArr = [];
 const player = new Player();
 let enemies = [];
 let spawnSkeletons, spawnArchers;
+const princess = document.getElementById("princess")
+const princessMessage = document.getElementById("princess-message")
 
 // function to clear enemies
 function clearEnemies() {
@@ -38,12 +40,17 @@ function changeStage(newStage, newX, newY) {
 // change relevant stages based on player position
 setInterval(() => {
     if (stage.imgURL === "./images/dungeon-room-1.jpeg" && player.positionX < 10 && player.positionY > 40 && player.positionY < 50) {
+        princess.style.display = "none";
+        princessMessage.style.display = "none"
         changeStage("./images/dungeon-room-2.jpeg", 90, player.positionY);
     }
 
     if (player.killCount >= 4 && stage.imgURL === "./images/dungeon-room-3.jpeg" && player.positionX > 80 && player.positionY > 40 && player.positionY < 50) {
         player.killCount = 0;
         changeStage("./images/dungeon-room-4.jpeg", 10, player.positionY);
+        princessMessage.innerText = "You saved me! My sister and I will be eternally grateful!";
+        princessMessage.style.display = "flex";
+        princess.style.display = "block";
         setTimeout(() => {
             stage.showEndMessage();
         }, 4000);

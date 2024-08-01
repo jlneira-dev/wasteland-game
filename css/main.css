@@ -14,6 +14,38 @@ body {
     overflow: hidden;
 }
 
+#princess {
+    background-image: url("../images/princess.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    display: block;
+    height: 10vh;
+    width: 14vh;
+    left: 60vw;
+    bottom: 50vh;
+    z-index: 1;
+}
+
+#princess-message {
+    background-color: white;
+    position: absolute;
+    height: 20vh;
+    width: 60vh;
+    left: 30vh;
+    bottom: 65vh;
+    z-index: 1;
+    border: 1vh solid black;
+    border-radius: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+    padding: 1vh;
+}
+
 #player {
     background-image: url("../images/wizard.png");
     background-repeat: no-repeat;
