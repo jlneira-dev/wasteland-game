@@ -1,3 +1,5 @@
+# WASTELAND
+
 ## GENERAL IDEA:
 
 Player moves through different rooms and defeats enemies in the rooms by shooting at them. 
@@ -14,26 +16,26 @@ Player loses if all lives lost, wins if defeats final room.
 
 [X] Create repo
 
-[X] Create player class
-    [X] Set position and size
-    [X] Create DOM element
-    [X] Create vertical and horizontal movement w/ Event Listener
+[X]Create player class
+- Set position and size
+- Create DOM element
+- Create vertical and horizontal movement w/ Event Listener
 
 [X] Create enemy class
-    [X] Set position and size
-    [X] Create DOM element
-    [X] Create movement to player
+- Set position and size
+- Create DOM element
+- Create movement to player
 
 [X] Create projectile class
-    [X] Set position (relative to player) and size
-    [X] Create DOM element
-    [X] Create movement to enemy
+- Set position (relative to player) and size
+- Create DOM element
+- Create movement to enemy
 
 [X] Change rooms
-    [X] Change game background
-    [X] Change player position
+- Change game background
+- Change player position
 
 ## TO-DO:
 
-[ ] Create screen if character loses all lives
+[X] Create screen if character loses all lives
 
